@@ -1,0 +1,16 @@
+[
+  {
+    "id": "admin-001",
+    "username": "admin",
+    "password": "8084b5105e0a0a5154a687e377cc6eb8:b13083e67dfe8cb49134585091959566e39f06ac5d67a9cf15ee5d70b0bd311461d59b88c332cee40c21002ef4197e4b14574a5b043eec06d0264b458209b441",
+    "role": "admin",
+    "createdAt": "2026-01-25T09:01:00.539Z"
+  },
+  {
+    "id": "1769331660544",
+    "username": "elaris",
+    "password": "fc2f78a1cee774f26e8896d505ec0428:24f113f4308fb045b3eb08e5592b82a12ea48d2932e7aa7cd092affc316e88f1b87fecbf6b1b9b4a0d751217f362e1d567252be5b0c5cfb2a4f3d4210851ef96",
+    "role": "user",
+    "createdAt": "2026-01-25T09:01:00.544Z"
+  }
+]
