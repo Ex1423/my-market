@@ -47,9 +47,17 @@ export async function POST(request: Request) {
   } catch (error) {
     logger.error('注册失败:', error);
     const message = error instanceof Error ? error.message : '服务器错误';
-    return NextResponse.json(
-      { error: process.env.NODE_ENV === 'development' ? message : '服务器错误' },
-      { status: 500 }
-    );
+    const errStr = String(message);
+
+    // 检测数据库连接问题（Vercel 上 SQLite 不可用，需配置云端数据库）
+    const isDbError = /sqlite|prisma|database|P1001|P1017|ENOENT|CANTOPEN|connection|reach database/i.test(errStr);
+
+    const userMessage = isDbError
+      ? '数据库连接失败。Vercel 部署需配置云端数据库，请在项目 Settings 中添加 DATABASE_URL。详见 VERCEL_数据库配置.md'
+      : process.env.NODE_ENV === 'development'
+        ? message
+        : '服务器错误，请稍后重试';
+
+    return NextResponse.json({ error: userMessage }, { status: 500 });
   }
 }

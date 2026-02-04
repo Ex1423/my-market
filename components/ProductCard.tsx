@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLanguage } from '@/components/LanguageContext';
 
 export interface Product {
@@ -56,21 +57,25 @@ export default function ProductCard({ product }: ProductCardProps) {
         e.currentTarget.style.boxShadow = 'var(--card-shadow)';
       }}
     >
-      {/* Image Placeholder */}
+      {/* Image - next/image 优化加载 */}
       <div className={`h-40 ${product.imageColor || 'bg-gray-50'} flex items-center justify-center relative overflow-hidden bg-gray-50`}>
         {product.imageData ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img 
-            src={product.imageData} 
-            alt={product.title} 
+          <Image
+            src={product.imageData}
+            alt={product.title}
+            width={300}
+            height={160}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            unoptimized={product.imageData.startsWith('data:')}
+            sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-500">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src="/logo.png" 
-              alt="U-Goods Logo" 
+            <Image
+              src="/logo.png"
+              alt="U-Goods Logo"
+              width={80}
+              height={80}
               className="max-w-full max-h-full object-contain opacity-80"
             />
           </div>
