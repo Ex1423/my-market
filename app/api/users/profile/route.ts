@@ -1,12 +1,30 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { cookies } from 'next/headers';
-import { verifyAuth } from '@/lib/auth'; // Assuming this exists or similar logic
+import { prisma, users } from '@/lib/db';
+import { verifyAuth } from '@/lib/auth';
+import { createClient } from '@/lib/supabase-server';
+
+// 获取当前用户 ID（优先 Supabase，回退 Prisma cookie）
+async function getCurrentUserId(): Promise<string | null> {
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    try {
+      const supabase = await createClient();
+      const { data } = await supabase.auth.getUser();
+      if (data?.user) {
+        const prismaUser = await users.findOrCreateBySupabase(data.user);
+        return prismaUser.id;
+      }
+    } catch (e) {
+      console.error('Supabase auth error:', e);
+    }
+  }
+  const authResult = await verifyAuth(null);
+  return authResult.success && authResult.userId ? authResult.userId : null;
+}
 
 export async function PUT(request: Request) {
   try {
-    const authResult = await verifyAuth(request);
-    if (!authResult.success || !authResult.userId) {
+    const userId = await getCurrentUserId();
+    if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -18,7 +36,7 @@ export async function PUT(request: Request) {
       const existingUser = await prisma.user.findFirst({
         where: { 
           username,
-          NOT: { id: authResult.userId }
+          NOT: { id: userId }
         }
       });
       if (existingUser) {
@@ -36,11 +54,11 @@ export async function PUT(request: Request) {
 
     const updatedUser = Object.keys(updateData).length > 0
       ? await prisma.user.update({
-          where: { id: authResult.userId },
+          where: { id: userId },
           data: updateData,
         })
       : await prisma.user.findUniqueOrThrow({
-          where: { id: authResult.userId },
+          where: { id: userId },
         });
 
     const { password: _, ...userWithoutPassword } = updatedUser;
