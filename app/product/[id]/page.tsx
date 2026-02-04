@@ -1,5 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
+import ProductDetailClient from '@/components/ProductDetailClient';
+import ProductNotFound from '@/components/ProductNotFound';
 
 /**
  * 商品详情页组件
@@ -13,68 +16,71 @@ export default async function ProductDetail({
   // 获取路由参数中的 id
   const { id } = await params;
 
-  // 模拟根据 ID 获取商品数据的逻辑
-  // 实际项目中这里应该请求后端 API
-  const product = {
-    id: id,
-    title: id === '1' ? '99新 iPhone 14' : '示例商品',
-    price: id === '1' ? '¥ 3,500' : '¥ ???',
-    description: '这是一段关于商品的详细描述。卖家很懒，什么都没写...',
-    seller: '张三',
-    publishDate: '2023-10-25',
-    imageColor: 'bg-gray-200'
+  // 从数据库获取商品数据，包含卖家信息，并增加浏览量
+  let product;
+  try {
+    // 首先尝试查找商品是否存在
+    const existingProduct = await prisma.product.findUnique({
+      where: { id: id }
+    });
+
+    if (existingProduct) {
+      // 如果存在，则更新浏览量并获取完整信息
+      product = await prisma.product.update({
+        where: { id: id },
+        data: { views: { increment: 1 } },
+        include: {
+          seller: {
+            select: {
+              id: true,
+              username: true,
+              createdAt: true,
+            }
+          },
+          images: true // 包含多图
+        }
+      });
+    } else {
+      product = null;
+    }
+  } catch (error) {
+    console.error(`Error fetching product ${id}:`, error);
+    // 如果更新失败（例如 ID 不存在），尝试仅查找
+    product = null;
+  }
+
+  // 如果没有找到商品，显示 404
+  if (!product) {
+    return <ProductNotFound />;
+  }
+
+  // 构造图片列表（确保包含 imageData）
+  let imageList: string[] = [];
+  if (product.images && product.images.length > 0) {
+    imageList = product.images.map(img => img.url);
+  } else if (product.imageData) {
+    imageList = [product.imageData];
+  }
+
+  // 解析 specs
+  let parsedSpecs = undefined;
+  if (product.specs) {
+    try {
+      parsedSpecs = JSON.parse(product.specs);
+    } catch (e) {
+      console.error('Failed to parse specs:', e);
+    }
+  }
+
+  // 序列化 product 对象，确保 Date 转换为字符串，避免传给 Client Component 时出错
+  const serializedProduct = {
+    ...product,
+    publishDate: product.publishDate.toISOString(),
+    seller: {
+      ...product.seller,
+      createdAt: product.seller.createdAt.toISOString()
+    }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <main className="max-w-4xl mx-auto px-4">
-        {/* 返回按钮 */}
-        <Link href="/" className="text-blue-600 hover:underline mb-6 inline-block">
-          &larr; 返回首页
-        </Link>
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          {/* 商品图片区域 */}
-          <div className={`h-64 sm:h-80 ${product.imageColor} flex items-center justify-center`}>
-            <span className="text-gray-400 text-2xl">商品大图预览</span>
-          </div>
-
-          {/* 商品详细信息 */}
-          <div className="p-6 sm:p-8">
-            <div className="flex justify-between items-start">
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                  {product.title}
-                </h1>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span>卖家: {product.seller}</span>
-                  <span>发布于: {product.publishDate}</span>
-                </div>
-              </div>
-              <span className="text-2xl sm:text-3xl font-bold text-red-600">
-                {product.price}
-              </span>
-            </div>
-
-            <div className="mt-8">
-              <h2 className="text-lg font-medium text-gray-900 mb-3">商品描述</h2>
-              <p className="text-gray-600 leading-relaxed">
-                {product.description}
-              </p>
-            </div>
-
-            {/* 底部操作按钮 */}
-            <div className="mt-10 pt-6 border-t border-gray-100 flex gap-4">
-              <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                我想要
-              </button>
-              <button className="flex-1 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-3 px-6 rounded-lg transition-colors">
-                收藏
-              </button>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
+  return <ProductDetailClient product={serializedProduct} imageList={imageList} specs={parsedSpecs} />;
 }

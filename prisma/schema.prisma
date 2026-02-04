@@ -1,0 +1,187 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  username    String   @unique
+  supabaseId  String?  @unique // 关联 Supabase Auth 用户
+  password    String   // format: salt:hash
+  avatar    String?  // Avatar URL
+  phone     String?  // Phone number
+  receiverName String?  // 收货人
+  address   String?  // 收货地址（省市区+详细地址）
+  role      String   @default("user") // "admin" or "user"
+  notificationSound String @default("default") // default, chime, alert, none
+  createdAt DateTime @default(now())
+  products  Product[]
+  favorites Favorite[]
+  cart      Cart?
+  orders    Order[]
+
+  // Chat relations
+  buyerConversations  Conversation[] @relation("BuyerConversations")
+  sellerConversations Conversation[] @relation("SellerConversations")
+  messagesSent        Message[]
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id])
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int      @default(1)
+  
+  @@unique([cartId, productId])
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  status    String      @default("PENDING") // PENDING, PAID, SHIPPED, COMPLETED, CANCELLED
+  total     Float
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float   // Snapshot of price at purchase
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  buyerId   String
+  buyer     User      @relation("BuyerConversations", fields: [buyerId], references: [id])
+  
+  sellerId  String
+  seller    User      @relation("SellerConversations", fields: [sellerId], references: [id])
+  
+  productId String?
+  product   Product?  @relation(fields: [productId], references: [id])
+  
+  messages  Message[]
+  
+  @@unique([buyerId, sellerId, productId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  createdAt      DateTime     @default(now())
+  content        String?
+  type           String       @default("text") // text, image, audio
+  mediaUrl       String?      // Store base64 for simplicity
+  
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  
+  read           Boolean      @default(false)
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  price       String
+  description String?
+  imageColor  String?
+  category    String?
+  imageData   String?  // Store base64 or URL
+  publishDate DateTime @default(now())
+  
+  // New fields for better details
+  views       Int      @default(0)
+  condition   String   @default("全新") // 全新, 99新, 9成新, etc.
+  location    String?  // e.g., "北京", "上海"
+  specs       String?  // JSON string for specifications: [{label: "尺寸", value: "..."}]
+  updatedAt   DateTime @updatedAt
+  
+  // Relation to User
+  sellerId    String
+  seller      User     @relation(fields: [sellerId], references: [id])
+  
+  // Relation to Images
+  images      ProductImage[]
+
+  // Relation to Favorites
+  favoritedBy Favorite[]
+
+  conversations Conversation[]
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  category  String   @default("默认")
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  keywords    String?
+  level       Int        // 1, 2, 3
+  parentId    String?
+  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+// 翻译缓存模型
+model Translation {
+  id             String   @id @default(cuid())
+  sourceText     String
+  targetLang     String
+  translatedText String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([sourceText, targetLang])
+}

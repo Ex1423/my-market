@@ -7,10 +7,20 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "restore": "node scripts/restore-from-backup.js",
+    "db:push": "prisma db push",
+    "db:generate": "prisma generate",
+    "db:fix-user-fields": "node scripts/add-user-fields.js",
+    "db:fix-direct": "node scripts/fix-database-direct.js",
+    "db:fix": "prisma db push --accept-data-loss && prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "^7.3.0",
+    "@prisma/client": "^5.10.2",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.94.0",
+    "google-translate-api-x": "^10.7.2",
+    "mammoth": "^1.11.0",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3"
@@ -22,7 +32,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
-    "prisma": "^7.3.0",
+    "prisma": "^5.10.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

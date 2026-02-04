@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
+import MobileBottomNav from "@/components/MobileBottomNav";
+import DebugPanel from "@/components/DebugPanel";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "我的二手市集",
-  description: "发现好物，循环利用 - 最好的二手交易平台",
+  title: "优物",
+  description: "优物 - 发现好物，循环利用 - 最好的二手交易平台",
 };
 
 export default function RootLayout({
@@ -25,9 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased pb-16 md:pb-0`}
       >
-        {children}
+        <Providers>
+          {children}
+          <MobileBottomNav />
+          <DebugPanel />
+        </Providers>
       </body>
     </html>
   );

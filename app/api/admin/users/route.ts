@@ -11,12 +11,12 @@ export async function GET() {
       return NextResponse.json({ error: '未登录' }, { status: 401 });
     }
 
-    const currentUser = users.findById(currentUserId);
+    const currentUser = await users.findById(currentUserId);
     if (!currentUser || currentUser.role !== 'admin') {
       return NextResponse.json({ error: '无权限' }, { status: 403 });
     }
 
-    const allUsers = users.getAll().map((u: any) => {
+    const allUsers = (await users.getAll()).map((u: any) => {
       const { password, ...userWithoutPassword } = u;
       return userWithoutPassword;
     });

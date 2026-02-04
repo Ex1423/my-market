@@ -1,0 +1,33 @@
+========================================
+  最简单的修复方法
+========================================
+
+问题：User 表缺少 avatar, phone, notificationSound 字段
+
+解决方法（任选一种）：
+
+方法 1：双击运行（最简单）
+  → 双击 "立即修复.bat" 文件
+  → 等待完成
+  → 运行 "npm run dev"
+
+方法 2：命令行（如果方法1不行）
+  1. 打开命令行（cmd）
+  2. 切换到项目目录：
+     cd /d "g:\kaifa\my shop\shopping"
+  3. 停止 Node.js：
+     taskkill /F /IM node.exe
+  4. 修复数据库：
+     npx prisma db push --accept-data-loss
+  5. 生成客户端：
+     npx prisma generate
+  6. 启动网站：
+     npm run dev
+
+方法 3：使用 npm 脚本
+  1. cd /d "g:\kaifa\my shop\shopping"
+  2. npm run db:fix
+
+========================================
+如果还是不行，请告诉我具体的错误信息
+========================================

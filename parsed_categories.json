@@ -1,0 +1,746 @@
+[
+  {
+    "id": "cat_1",
+    "name": "家居生活",
+    "children": [
+      {
+        "id": "cat_1_sub_1",
+        "name": "家具系列",
+        "children": [
+          {
+            "id": "cat_1_sub_1_1",
+            "name": "客餐厅家具",
+            "description": "满足会客、用餐、空间收纳需求",
+            "keywords": "沙发、茶几、餐桌椅、餐边柜、玄关柜"
+          },
+          {
+            "id": "cat_1_sub_1_2",
+            "name": "书房办公家具",
+            "description": "适配居家办公、学习、阅读场景",
+            "keywords": "书桌、书椅、书架、文件柜、办公沙发"
+          },
+          {
+            "id": "cat_1_sub_1_3",
+            "name": "卧室家具",
+            "description": "主打睡眠、更衣、私密储物功能",
+            "keywords": "床架、衣柜、床头柜、梳妆台、床垫"
+          }
+        ]
+      },
+      {
+        "id": "cat_1_sub_2",
+        "name": "家纺布艺",
+        "children": [
+          {
+            "id": "cat_1_sub_2_1",
+            "name": "床品套件",
+            "description": "提升睡眠舒适度，兼顾卧室装饰",
+            "keywords": "四件套、被子、枕头、床笠、床裙"
+          },
+          {
+            "id": "cat_1_sub_2_2",
+            "name": "软装布艺",
+            "description": "美化空间，兼具遮光、保暖、防滑功能",
+            "keywords": "窗帘、地毯、抱枕、飘窗垫、浴帘"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_2",
+    "name": "日用百货",
+    "children": [
+      {
+        "id": "cat_2_sub_default",
+        "name": "通用分类",
+        "children": [
+          {
+            "id": "cat_2_sub_default_1",
+            "name": "清洁收纳",
+            "description": "解决家庭清洁、杂物整理需求",
+            "keywords": "拖把、收纳箱、垃圾袋、洗洁精、清洁剂"
+          },
+          {
+            "id": "cat_2_sub_default_2",
+            "name": "餐厨用具",
+            "description": "满足日常烹饪、用餐、食材储存",
+            "keywords": "锅具、餐具、刀具、保温杯、保鲜盒"
+          },
+          {
+            "id": "cat_2_sub_default_3",
+            "name": "家居小物",
+            "description": "提升生活便捷度与空间氛围感",
+            "keywords": "衣架、粘钩、纸巾盒、香薰、装饰摆件"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_3",
+    "name": "数码家电",
+    "children": [
+      {
+        "id": "cat_3_sub_1",
+        "name": "大家电",
+        "children": [
+          {
+            "id": "cat_3_sub_1_1",
+            "name": "制冷制热家电",
+            "description": "调节室内温度、保鲜储物",
+            "keywords": "空调、冰箱、冰柜、取暖器、加湿器"
+          },
+          {
+            "id": "cat_3_sub_1_2",
+            "name": "厨房大家电",
+            "description": "解放双手，提升烹饪与清洁效率",
+            "keywords": "洗衣机、洗碗机、油烟机、燃气灶、集成灶"
+          }
+        ]
+      },
+      {
+        "id": "cat_3_sub_2",
+        "name": "小家电",
+        "children": [
+          {
+            "id": "cat_3_sub_2_1",
+            "name": "厨房小家电",
+            "description": "便捷烹饪、食材加工",
+            "keywords": "电饭煲、空气炸锅、破壁机、微波炉、电烤箱"
+          },
+          {
+            "id": "cat_3_sub_2_2",
+            "name": "生活小家电",
+            "description": "改善生活品质，适配日常场景",
+            "keywords": "吹风机、吸尘器、扫地机器人、挂烫机、养生壶"
+          }
+        ]
+      },
+      {
+        "id": "cat_3_sub_3",
+        "name": "数码产品",
+        "children": [
+          {
+            "id": "cat_3_sub_3_1",
+            "name": "手机通讯",
+            "description": "移动通讯、随身娱乐",
+            "keywords": "智能手机、手机壳、充电器、蓝牙耳机、充电宝"
+          },
+          {
+            "id": "cat_3_sub_3_2",
+            "name": "电脑办公",
+            "description": "适配办公、学习、游戏需求",
+            "keywords": "笔记本电脑、台式机、打印机、鼠标键盘、U盘"
+          },
+          {
+            "id": "cat_3_sub_3_3",
+            "name": "影音设备",
+            "description": "家庭娱乐、视听享受",
+            "keywords": "投影仪、音响、耳机、电视机顶盒、相机"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_4",
+    "name": "服饰鞋包",
+    "children": [
+      {
+        "id": "cat_4_sub_1",
+        "name": "服装系列",
+        "children": [
+          {
+            "id": "cat_4_sub_1_1",
+            "name": "男装",
+            "description": "覆盖日常、商务、休闲、运动场景",
+            "keywords": "衬衫、T恤、西装、羽绒服、牛仔裤、运动服"
+          },
+          {
+            "id": "cat_4_sub_1_2",
+            "name": "女装",
+            "description": "满足通勤、约会、居家、派对穿搭",
+            "keywords": "连衣裙、卫衣、风衣、针织衫、半身裙、羽绒服"
+          },
+          {
+            "id": "cat_4_sub_1_3",
+            "name": "童装",
+            "description": "适配婴儿、儿童、青少年生长阶段",
+            "keywords": "婴儿连体衣、儿童校服、运动套装、羽绒服、公主裙"
+          },
+          {
+            "id": "cat_4_sub_1_4",
+            "name": "内衣配饰",
+            "description": "贴身衣物与穿搭点缀单品",
+            "keywords": "内衣、袜子、围巾、帽子、皮带、手套"
+          }
+        ]
+      },
+      {
+        "id": "cat_4_sub_2",
+        "name": "鞋靴系列",
+        "children": [
+          {
+            "id": "cat_4_sub_2_1",
+            "name": "男鞋",
+            "description": "覆盖不同场合穿着需求",
+            "keywords": "皮鞋、运动鞋、休闲鞋、马丁靴、雪地靴"
+          },
+          {
+            "id": "cat_4_sub_2_2",
+            "name": "女鞋",
+            "description": "兼顾美观与舒适度，适配多样穿搭",
+            "keywords": "高跟鞋、帆布鞋、凉鞋、雪地靴、乐福鞋"
+          },
+          {
+            "id": "cat_4_sub_2_3",
+            "name": "童鞋",
+            "description": "适配儿童行走、运动，保障足部发育",
+            "keywords": "学步鞋、儿童运动鞋、帆布鞋、雪地靴"
+          }
+        ]
+      },
+      {
+        "id": "cat_4_sub_3",
+        "name": "箱包系列",
+        "children": [
+          {
+            "id": "cat_4_sub_3_1",
+            "name": "时尚包袋",
+            "description": "日常出行收纳，搭配服饰",
+            "keywords": "手提包、双肩包、托特包、钱包、斜挎包"
+          },
+          {
+            "id": "cat_4_sub_3_2",
+            "name": "功能箱包",
+            "description": "满足旅行、办公、户外等特定需求",
+            "keywords": "行李箱、电脑包、公文包、登山包、母婴包"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_5",
+    "name": "美妆个护",
+    "children": [
+      {
+        "id": "cat_5_sub_1",
+        "name": "面部护肤",
+        "children": [
+          {
+            "id": "cat_5_sub_1_1",
+            "name": "基础护肤",
+            "description": "维持肌肤水润、稳定，日常护理必备",
+            "keywords": "洁面乳、爽肤水、乳液、面霜、精华水"
+          },
+          {
+            "id": "cat_5_sub_1_2",
+            "name": "功效护肤",
+            "description": "针对性解决肌肤问题（美白、抗皱等）",
+            "keywords": "精华液、眼霜、防晒霜、面膜、祛痘凝胶"
+          }
+        ]
+      },
+      {
+        "id": "cat_5_sub_2",
+        "name": "彩妆系列",
+        "children": [
+          {
+            "id": "cat_5_sub_2_1",
+            "name": "底妆产品",
+            "description": "均匀肤色，打造精致妆容基底",
+            "keywords": "粉底液、气垫、散粉、遮瑕膏、隔离霜"
+          },
+          {
+            "id": "cat_5_sub_2_2",
+            "name": "眼唇彩妆",
+            "description": "提升妆容精致度，放大五官优势",
+            "keywords": "口红、眼影、睫毛膏、眉笔、眼线笔"
+          }
+        ]
+      },
+      {
+        "id": "cat_5_sub_3",
+        "name": "个护清洁",
+        "children": [
+          {
+            "id": "cat_5_sub_3_1",
+            "name": "身体护理",
+            "description": "清洁、滋润身体肌肤，改善肤质",
+            "keywords": "沐浴露、身体乳、磨砂膏、脱毛膏、身体精华"
+          },
+          {
+            "id": "cat_5_sub_3_2",
+            "name": "口腔护理",
+            "description": "维护口腔健康，清新口气",
+            "keywords": "牙膏、牙刷、漱口水、牙线、口腔喷雾"
+          },
+          {
+            "id": "cat_5_sub_3_3",
+            "name": "头发护理",
+            "description": "清洁头发，改善发质（控油、防脱等）",
+            "keywords": "洗发水、护发素、发膜、精油、染发剂"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_6",
+    "name": "食品生鲜",
+    "children": [
+      {
+        "id": "cat_6_sub_1",
+        "name": "休闲零食",
+        "children": [
+          {
+            "id": "cat_6_sub_1_1",
+            "name": "膨化糖果",
+            "description": "追剧、聚会、日常解馋零食",
+            "keywords": "薯片、巧克力、水果糖、果冻、饼干"
+          },
+          {
+            "id": "cat_6_sub_1_2",
+            "name": "坚果果干",
+            "description": "健康营养，补充维生素与微量元素",
+            "keywords": "巴旦木、核桃、葡萄干、芒果干、腰果"
+          },
+          {
+            "id": "cat_6_sub_1_3",
+            "name": "肉脯蜜饯",
+            "description": "风味小吃，解馋耐吃",
+            "keywords": "猪肉脯、牛肉干、话梅、橄榄、杨梅干"
+          }
+        ]
+      },
+      {
+        "id": "cat_6_sub_2",
+        "name": "粮油米面",
+        "children": [
+          {
+            "id": "cat_6_sub_2_1",
+            "name": "主食系列",
+            "description": "家庭日常饮食刚需，提供能量",
+            "keywords": "大米、面粉、挂面、杂粮、方便面"
+          },
+          {
+            "id": "cat_6_sub_2_2",
+            "name": "油盐调料",
+            "description": "烹饪调味必备，提升菜品风味",
+            "keywords": "食用油、食盐、酱油、醋、香料、辣椒酱"
+          }
+        ]
+      },
+      {
+        "id": "cat_6_sub_3",
+        "name": "生鲜食材",
+        "children": [
+          {
+            "id": "cat_6_sub_3_1",
+            "name": "蔬菜水果",
+            "description": "补充维生素、膳食纤维，新鲜健康",
+            "keywords": "时令蔬菜、新鲜水果、菌菇、葱姜蒜"
+          },
+          {
+            "id": "cat_6_sub_3_2",
+            "name": "肉禽蛋奶",
+            "description": "补充蛋白质，满足日常营养需求",
+            "keywords": "猪肉、牛肉、羊肉、鸡蛋、牛奶、酸奶"
+          },
+          {
+            "id": "cat_6_sub_3_3",
+            "name": "水产海鲜",
+            "description": "丰富餐桌菜品，口感鲜美，营养丰富",
+            "keywords": "鱼类、虾类、贝类、冷冻海鲜、鱼丸"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_7",
+    "name": "酒水饮料",
+    "children": [
+      {
+        "id": "cat_7_sub_default",
+        "name": "通用分类",
+        "children": [
+          {
+            "id": "cat_7_sub_default_1",
+            "name": "瓶装饮品",
+            "description": "日常解渴、随身饮用",
+            "keywords": "矿泉水、碳酸饮料、果汁、茶饮、功能饮料"
+          },
+          {
+            "id": "cat_7_sub_default_2",
+            "name": "酒类产品",
+            "description": "聚餐、宴请、自饮小酌",
+            "keywords": "白酒、啤酒、红酒、果酒、黄酒、洋酒"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_8",
+    "name": "运动户外",
+    "children": [
+      {
+        "id": "cat_8_sub_1",
+        "name": "运动装备",
+        "children": [
+          {
+            "id": "cat_8_sub_1_1",
+            "name": "健身器材",
+            "description": "适配居家、健身房锻炼场景",
+            "keywords": "瑜伽垫、哑铃、跑步机、拉力器、动感单车"
+          },
+          {
+            "id": "cat_8_sub_1_2",
+            "name": "球类用品",
+            "description": "满足各类球类运动需求",
+            "keywords": "篮球、足球、羽毛球拍、乒乓球拍、网球拍"
+          },
+          {
+            "id": "cat_8_sub_1_3",
+            "name": "运动服饰",
+            "description": "运动时穿着，透气、吸汗、耐磨",
+            "keywords": "运动T恤、瑜伽裤、运动裤、运动鞋、运动袜"
+          }
+        ]
+      },
+      {
+        "id": "cat_8_sub_2",
+        "name": "户外用品",
+        "children": [
+          {
+            "id": "cat_8_sub_2_1",
+            "name": "露营装备",
+            "description": "适配户外露营、野餐、亲子活动",
+            "keywords": "帐篷、睡袋、野餐垫、露营椅、便携炉具"
+          },
+          {
+            "id": "cat_8_sub_2_2",
+            "name": "登山装备",
+            "description": "辅助户外徒步、登山、探险",
+            "keywords": "登山鞋、登山杖、背包、冲锋衣、睡垫"
+          },
+          {
+            "id": "cat_8_sub_2_3",
+            "name": "户外配件",
+            "description": "保障户外出行安全与便捷",
+            "keywords": "手电筒、保温杯、驱蚊液、防晒帽、墨镜"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_9",
+    "name": "母婴用品",
+    "children": [
+      {
+        "id": "cat_9_sub_1",
+        "name": "喂养用品",
+        "children": [
+          {
+            "id": "cat_9_sub_1_1",
+            "name": "奶瓶奶嘴",
+            "description": "适配婴儿喝奶、喝水，安全无异味",
+            "keywords": "玻璃奶瓶、硅胶奶嘴、奶瓶清洗剂、奶瓶消毒器"
+          },
+          {
+            "id": "cat_9_sub_1_2",
+            "name": "辅食工具",
+            "description": "辅助制作、储存、喂食婴儿辅食",
+            "keywords": "辅食机、研磨碗、辅食勺、辅食盒、围兜"
+          }
+        ]
+      },
+      {
+        "id": "cat_9_sub_2",
+        "name": "洗护用品",
+        "children": [
+          {
+            "id": "cat_9_sub_2_1",
+            "name": "婴儿洗护",
+            "description": "温和清洁婴儿肌肤、头发，无刺激",
+            "keywords": "婴儿洗发水、沐浴露、爽身粉、抚触油"
+          },
+          {
+            "id": "cat_9_sub_2_2",
+            "name": "护理用品",
+            "description": "婴儿日常护理刚需，保障舒适",
+            "keywords": "纸尿裤、湿纸巾、护臀膏、隔尿垫、退热贴"
+          }
+        ]
+      },
+      {
+        "id": "cat_9_sub_3",
+        "name": "玩具早教",
+        "children": [
+          {
+            "id": "cat_9_sub_3_1",
+            "name": "益智玩具",
+            "description": "锻炼婴儿动手、思维、认知能力",
+            "keywords": "积木、拼图、早教机、摇铃、牙胶玩具"
+          },
+          {
+            "id": "cat_9_sub_3_2",
+            "name": "毛绒玩具",
+            "description": "陪伴婴儿成长，安抚情绪",
+            "keywords": "毛绒公仔、安抚巾、玩偶、抱枕"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_10",
+    "name": "图书文创",
+    "children": [
+      {
+        "id": "cat_10_sub_1",
+        "name": "图书音像",
+        "children": [
+          {
+            "id": "cat_10_sub_1_1",
+            "name": "畅销书籍",
+            "description": "覆盖大众阅读、文学、社科等领域",
+            "keywords": "小说、散文、成功学、历史读物、心理学书籍"
+          },
+          {
+            "id": "cat_10_sub_1_2",
+            "name": "儿童读物",
+            "description": "儿童启蒙、认知、课外阅读",
+            "keywords": "绘本、童话书、科普读物、识字卡片、教辅资料"
+          },
+          {
+            "id": "cat_10_sub_1_3",
+            "name": "音像制品",
+            "description": "视听娱乐、学习资料",
+            "keywords": "音乐CD、电影DVD、有声读物、教学光盘"
+          }
+        ]
+      },
+      {
+        "id": "cat_10_sub_2",
+        "name": "文创产品",
+        "children": [
+          {
+            "id": "cat_10_sub_2_1",
+            "name": "文具手账",
+            "description": "学习、办公、记录需求，兼具颜值",
+            "keywords": "笔记本、钢笔、胶带、贴纸、手账本、印章"
+          },
+          {
+            "id": "cat_10_sub_2_2",
+            "name": "创意摆件",
+            "description": "装饰空间，彰显个性与格调",
+            "keywords": "相框、摆件、香薰蜡烛、明信片、书签"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_11",
+    "name": "农资园艺",
+    "children": [
+      {
+        "id": "cat_11_sub_1",
+        "name": "农资产品",
+        "children": [
+          {
+            "id": "cat_11_sub_1_1",
+            "name": "种子种苗",
+            "description": "农业种植、家庭园艺基础物资",
+            "keywords": "蔬菜种子、花卉种苗、果树苗、多肉种子"
+          },
+          {
+            "id": "cat_11_sub_1_2",
+            "name": "肥料农药",
+            "description": "促进植物生长，防治病虫害",
+            "keywords": "有机肥料、杀虫剂、除草剂、营养液"
+          }
+        ]
+      },
+      {
+        "id": "cat_11_sub_2",
+        "name": "园艺工具",
+        "children": [
+          {
+            "id": "cat_11_sub_2_1",
+            "name": "种植工具",
+            "description": "园艺劳作、家庭种植必备",
+            "keywords": "花盆、铲子、浇水壶、修剪刀、园艺手套"
+          },
+          {
+            "id": "cat_11_sub_2_2",
+            "name": "绿植花卉",
+            "description": "美化庭院、室内空间，净化空气",
+            "keywords": "多肉植物、绿萝、月季、吊兰、发财树"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_12",
+    "name": "宠物用品",
+    "children": [
+      {
+        "id": "cat_12_sub_1",
+        "name": "宠物食品",
+        "children": [
+          {
+            "id": "cat_12_sub_1_1",
+            "name": "主粮零食",
+            "description": "满足宠物日常饮食、补充营养",
+            "keywords": "狗粮、猫粮、宠物罐头、冻干零食、磨牙棒"
+          },
+          {
+            "id": "cat_12_sub_1_2",
+            "name": "营养保健",
+            "description": "调理宠物肠胃、毛发、骨骼健康",
+            "keywords": "宠物钙片、益生菌、美毛粉、驱虫药"
+          }
+        ]
+      },
+      {
+        "id": "cat_12_sub_2",
+        "name": "宠物用品",
+        "children": [
+          {
+            "id": "cat_12_sub_2_1",
+            "name": "日常用品",
+            "description": "宠物生活刚需，保障舒适",
+            "keywords": "猫砂、猫砂盆、狗绳、宠物窝、食盆水盆"
+          },
+          {
+            "id": "cat_12_sub_2_2",
+            "name": "清洁美容",
+            "description": "宠物清洁护理、毛发打理",
+            "keywords": "宠物沐浴露、梳子、指甲剪、除臭剂、吹风机"
+          },
+          {
+            "id": "cat_12_sub_2_3",
+            "name": "宠物玩具",
+            "description": "陪伴宠物，缓解孤独，磨牙益智",
+            "keywords": "逗猫棒、咬胶玩具、毛绒玩具、飞盘"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_13",
+    "name": "汽车用品",
+    "children": [
+      {
+        "id": "cat_13_sub_1",
+        "name": "内饰用品",
+        "children": [
+          {
+            "id": "cat_13_sub_1_1",
+            "name": "舒适装饰",
+            "description": "提升车内舒适度与美观度",
+            "keywords": "汽车坐垫、脚垫、方向盘套、抱枕、香薰"
+          },
+          {
+            "id": "cat_13_sub_1_2",
+            "name": "收纳工具",
+            "description": "整理车内杂物，保持空间整洁",
+            "keywords": "车载收纳箱、座椅背袋、后备箱垫、置物架"
+          }
+        ]
+      },
+      {
+        "id": "cat_13_sub_2",
+        "name": "外饰用品",
+        "children": [
+          {
+            "id": "cat_13_sub_2_1",
+            "name": "车身装饰",
+            "description": "美化车身，彰显个性",
+            "keywords": "车贴、轮毂盖、雨眉、防撞条、装饰灯"
+          },
+          {
+            "id": "cat_13_sub_2_2",
+            "name": "防护用品",
+            "description": "保护车身，避免磨损、剐蹭",
+            "keywords": "车衣、太阳膜、挡泥板、划痕修复剂"
+          }
+        ]
+      },
+      {
+        "id": "cat_13_sub_3",
+        "name": "应急工具",
+        "children": [
+          {
+            "id": "cat_13_sub_3_1",
+            "name": "车载应急",
+            "description": "应对车辆故障、紧急情况",
+            "keywords": "千斤顶、备胎、拖车绳、应急启动电源、灭火器"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_14",
+    "name": "医药健康",
+    "children": [
+      {
+        "id": "cat_14_sub_1",
+        "name": "常用药品",
+        "children": [
+          {
+            "id": "cat_14_sub_1_1",
+            "name": "感冒消炎",
+            "description": "应对日常感冒、炎症等轻微症状",
+            "keywords": "感冒药、消炎药、退烧药、止咳药"
+          },
+          {
+            "id": "cat_14_sub_1_2",
+            "name": "肠胃调理",
+            "description": "改善肠胃不适、消化不良",
+            "keywords": "肠胃药、益生菌、止泻药、健胃消食片"
+          }
+        ]
+      },
+      {
+        "id": "cat_14_sub_2",
+        "name": "保健滋补",
+        "children": [
+          {
+            "id": "cat_14_sub_2_1",
+            "name": "营养补充",
+            "description": "补充人体所需维生素、微量元素",
+            "keywords": "维生素片、蛋白粉、钙片、鱼油、燕窝"
+          },
+          {
+            "id": "cat_14_sub_2_2",
+            "name": "养生滋补",
+            "description": "传统养生，调理身体机能",
+            "keywords": "枸杞、红枣、黄芪、人参、阿胶"
+          }
+        ]
+      },
+      {
+        "id": "cat_14_sub_3",
+        "name": "医疗用品",
+        "children": [
+          {
+            "id": "cat_14_sub_3_1",
+            "name": "家用医疗",
+            "description": "家庭日常护理、健康监测",
+            "keywords": "体温计、血压计、创可贴、纱布、消毒液"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+.contextMenuPosition {
+  left: var(--chat-context-menu-left);
+  top: var(--chat-context-menu-top);
+}
+
