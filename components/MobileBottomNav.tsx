@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/components/LanguageContext';
 import { useNotification } from '@/components/NotificationContext';
 import { useEffect, useState } from 'react';
+import styles from './MobileBottomNav.module.css';
 
 export default function MobileBottomNav() {
   const { t } = useLanguage();
@@ -91,15 +92,16 @@ export default function MobileBottomNav() {
       {isCategoryOpen && (
         <div className="fixed inset-0 bg-black/50 z-40 flex items-end md:hidden animate-in fade-in duration-200" onClick={() => setIsCategoryOpen(false)}>
           <div 
-            className="bg-white w-full rounded-t-2xl p-6 max-h-[80vh] overflow-y-auto animate-in slide-in-from-bottom duration-300" 
+            className={`bg-white w-full rounded-t-2xl p-6 max-h-[80vh] overflow-y-auto animate-in slide-in-from-bottom duration-300 ${styles.categoryModal}`}
             onClick={e => e.stopPropagation()}
-            style={{ marginBottom: 'calc(4rem + env(safe-area-inset-bottom))' }}
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-bold text-gray-900">{(t as any).category || '分类'}</h2>
               <button 
                 onClick={() => setIsCategoryOpen(false)}
                 className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+                aria-label="关闭"
+                title="关闭"
               >
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
@@ -131,8 +133,7 @@ export default function MobileBottomNav() {
         <Link 
           href="/" 
           onClick={() => setIsCategoryOpen(false)}
-          className={`flex flex-col items-center justify-center w-full h-full ${isActive('/') ? '' : 'text-gray-500'}`}
-        style={isActive('/') ? { color: 'var(--nav-active-color)' } : { color: 'var(--nav-inactive-color)' }}
+          className={`flex flex-col items-center justify-center w-full h-full ${isActive('/') ? styles.navItemActive : styles.navItemInactive}`}
         >
           {isActive('/') ? (
             <svg className="w-6 h-6 mb-1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
@@ -145,8 +146,7 @@ export default function MobileBottomNav() {
         {/* Category (Replaces Messages) */}
         <button 
           onClick={() => setIsCategoryOpen(true)}
-          className={`flex flex-col items-center justify-center w-full h-full ${isCategoryOpen ? '' : 'text-gray-500'}`}
-          style={isCategoryOpen ? { color: 'var(--nav-active-color)' } : { color: 'var(--nav-inactive-color)' }}
+          className={`flex flex-col items-center justify-center w-full h-full ${isCategoryOpen ? styles.navItemActive : styles.navItemInactive}`}
         >
           <div className="relative">
             <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
@@ -158,8 +158,7 @@ export default function MobileBottomNav() {
         <Link 
           href="/cart" 
           onClick={() => setIsCategoryOpen(false)}
-          className={`flex flex-col items-center justify-center w-full h-full ${isActive('/cart') ? '' : 'text-gray-500'}`}
-          style={isActive('/cart') ? { color: 'var(--nav-active-color)' } : { color: 'var(--nav-inactive-color)' }}
+          className={`flex flex-col items-center justify-center w-full h-full ${isActive('/cart') ? styles.navItemActive : styles.navItemInactive}`}
         >
           {isActive('/cart') ? (
             <svg className="w-6 h-6 mb-1" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
@@ -173,8 +172,7 @@ export default function MobileBottomNav() {
         <Link 
           href={currentUser ? "/profile" : "/auth"} 
           onClick={() => setIsCategoryOpen(false)}
-          className={`flex flex-col items-center justify-center w-full h-full ${isActive('/profile') || isActive('/auth') ? '' : 'text-gray-500'}`}
-          style={(isActive('/profile') || isActive('/auth')) ? { color: 'var(--nav-active-color)' } : { color: 'var(--nav-inactive-color)' }}
+          className={`flex flex-col items-center justify-center w-full h-full ${(isActive('/profile') || isActive('/auth')) ? styles.navItemActive : styles.navItemInactive}`}
         >
           {isActive('/profile') || isActive('/auth') ? (
             <svg className="w-6 h-6 mb-1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>

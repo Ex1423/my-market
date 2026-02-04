@@ -1,0 +1,14 @@
+/* 分类弹窗底部间距，适配安全区域 */
+.categoryModal {
+  margin-bottom: calc(4rem + env(safe-area-inset-bottom));
+}
+
+/* 底部导航项 - 激活状态 */
+.navItemActive {
+  color: var(--nav-active-color);
+}
+
+/* 底部导航项 - 未激活状态 */
+.navItemInactive {
+  color: var(--nav-inactive-color);
+}

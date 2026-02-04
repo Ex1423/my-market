@@ -8,18 +8,18 @@ const supabaseKey =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
 
-export async function createClient() {
-  const cookieStore = await cookies();
+export async function createClient(cookieStore?: Awaited<ReturnType<typeof cookies>>) {
+  const store = cookieStore ?? await cookies();
 
   return createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       getAll() {
-        return cookieStore.getAll();
+        return store.getAll();
       },
       setAll(cookiesToSet) {
         try {
           cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
+            store.set(name, value, options)
           );
         } catch {
           // Server Component 中 setAll 可能失败，由 proxy 负责刷新

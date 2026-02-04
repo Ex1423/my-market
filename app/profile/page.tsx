@@ -8,6 +8,7 @@ import CacheCleaner from '@/components/CacheCleaner';
 import { useLanguage } from '@/components/LanguageContext';
 import { useNotification } from '@/components/NotificationContext';
 import FavoriteItem from '@/components/FavoriteItem';
+import { supabase } from '@/lib/supabase';
 
 interface FavoriteItem {
   id: string;
@@ -52,19 +53,36 @@ function ProfileContent() {
   const [addressSaving, setAddressSaving] = useState(false);
   const [addressSaveMsg, setAddressSaveMsg] = useState<'success' | 'error' | null>(null);
   const [addressSaveErr, setAddressSaveErr] = useState('');
+  const [avatarUploading, setAvatarUploading] = useState(false);
 
-  const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        alert('File size too large (max 2MB)');
-        return;
-      }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setEditForm(prev => ({ ...prev, avatar: reader.result as string }));
-      };
-      reader.readAsDataURL(file);
+    if (!file || !user?.id) return;
+    if (!(await ensureSessionAndRedirect())) return;
+    if (file.size > 2 * 1024 * 1024) {
+      alert('File size too large (max 2MB)');
+      return;
+    }
+    const ext = file.name.split('.').pop() || 'jpg';
+    const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    setAvatarUploading(true);
+    try {
+      const { error } = await supabase.storage.from('avatars').upload(path, file, {
+        cacheControl: '3600',
+        upsert: true,
+      });
+      if (error) throw error;
+      const { data } = supabase.storage.from('avatars').getPublicUrl(path);
+      setEditForm(prev => ({ ...prev, avatar: data.publicUrl }));
+    } catch (err) {
+      console.error('Avatar upload error:', err);
+      const msg = err instanceof Error ? err.message : '';
+      const isAuthErr = /unauthorized|jwt|session|401/i.test(msg);
+      alert(isAuthErr ? '请重新登录' : (msg || '上传失败，请重试'));
+      if (isAuthErr) router.push('/auth');
+    } finally {
+      setAvatarUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -72,7 +90,7 @@ function ProfileContent() {
     const controller = new AbortController();
     
     const timer = setTimeout(() => {
-      fetch('/api/auth/me', { signal: controller.signal })
+      fetch('/api/auth/me', { signal: controller.signal, credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
           if (!controller.signal.aborted) {
@@ -114,7 +132,7 @@ function ProfileContent() {
     const controller = new AbortController();
     if (activeTab === 'favorites' && user) {
       setFavoritesLoading(true);
-      fetch(`/api/favorites?userId=${user.id}`, { signal: controller.signal })
+      fetch(`/api/favorites?userId=${user.id}`, { signal: controller.signal, credentials: 'include' })
         .then(res => res.json())
         .then(data => {
           if (!controller.signal.aborted && data.favorites) {
@@ -129,7 +147,7 @@ function ProfileContent() {
         });
     } else if (activeTab === 'orders' && user) {
       setOrdersLoading(true);
-      fetch('/api/orders', { signal: controller.signal })
+      fetch('/api/orders', { signal: controller.signal, credentials: 'include' })
         .then(res => res.json())
         .then(data => {
           if (!controller.signal.aborted && data.orders) {
@@ -146,42 +164,81 @@ function ProfileContent() {
     return () => controller.abort();
   }, [activeTab, user]);
 
+  const getAuthHeaders = async (): Promise<HeadersInit> => {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    try {
+      await supabase.auth.refreshSession();
+      const { data } = await supabase.auth.getSession();
+      if (data?.session?.access_token) {
+        headers['Authorization'] = `Bearer ${data.session.access_token}`;
+      }
+    } catch (_) {}
+    return headers;
+  };
+
+  const ensureSessionAndRedirect = async (): Promise<boolean> => {
+    try {
+      const { data } = await supabase.auth.getSession();
+      if (!data?.session?.access_token) {
+        alert('请重新登录');
+        router.push('/auth');
+        return false;
+      }
+      return true;
+    } catch {
+      alert('请重新登录');
+      router.push('/auth');
+      return false;
+    }
+  };
+
+  const handleAuthError = (res: Response, data: { error?: string }) => {
+    const msg = res.status === 401 ? '请重新登录' : (data?.error || '操作失败');
+    alert(msg);
+    if (res.status === 401) router.push('/auth');
+  };
+
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!(await ensureSessionAndRedirect())) return;
     try {
+      const headers = await getAuthHeaders();
       const res = await fetch('/api/users/profile', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
+        credentials: 'include',
         body: JSON.stringify(editForm)
       });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        const data = await res.json();
         setUser(data.user);
         setIsEditing(false);
         alert('Profile updated successfully');
       } else {
-        const data = await res.json();
-        alert(data.error || 'Failed to update profile');
+        handleAuthError(res, data);
       }
     } catch (error) {
       console.error('Update profile error', error);
-      alert('Error updating profile');
+      alert('请重新登录');
+      router.push('/auth');
     }
   };
 
   const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' });
+    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
     window.location.href = '/auth';
   };
 
   const handleSaveAddress = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!(await ensureSessionAndRedirect())) return;
     setAddressSaving(true);
     setAddressSaveMsg(null);
     try {
+      const headers = await getAuthHeaders();
       const res = await fetch('/api/users/profile', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include',
         body: JSON.stringify({
           phone: editForm.phone,
@@ -195,16 +252,18 @@ function ProfileContent() {
         setAddressSaveMsg('success');
         setTimeout(() => setAddressSaveMsg(null), 3000);
       } else {
-        const errMsg = data?.error || `HTTP ${res.status}`;
+        const errMsg = res.status === 401 ? '请重新登录' : (data?.error || `HTTP ${res.status}`);
         setAddressSaveMsg('error');
         setAddressSaveErr(errMsg);
         setTimeout(() => { setAddressSaveMsg(null); setAddressSaveErr(''); }, 5000);
+        if (res.status === 401) router.push('/auth');
       }
     } catch (err) {
       console.error('Save address error:', err);
       setAddressSaveMsg('error');
-      setAddressSaveErr(err instanceof Error ? err.message : '网络错误');
+      setAddressSaveErr('请重新登录');
       setTimeout(() => { setAddressSaveMsg(null); setAddressSaveErr(''); }, 5000);
+      router.push('/auth');
     } finally {
       setAddressSaving(false);
     }
@@ -324,10 +383,11 @@ function ProfileContent() {
                           <div className="flex flex-col gap-2">
                             <button
                               type="button"
+                              disabled={avatarUploading}
                               onClick={() => fileInputRef.current?.click()}
-                              className="text-sm bg-white border border-gray-300 py-1 px-3 rounded-md hover:bg-gray-50"
+                              className="text-sm bg-white border border-gray-300 py-1 px-3 rounded-md hover:bg-gray-50 disabled:opacity-50"
                             >
-                              {(t as any).profilePage?.uploadImage || '上传图片'}
+                              {avatarUploading ? '上传中...' : ((t as any).profilePage?.uploadImage || '上传图片')}
                             </button>
                             <input
                               type="file"

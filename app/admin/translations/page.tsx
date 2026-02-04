@@ -149,6 +149,9 @@ export default function AdminTranslationsPage() {
                           value={editValue}
                           onChange={(e) => setEditValue(e.target.value)}
                           rows={2}
+                          aria-label="编辑译文"
+                          placeholder="输入译文"
+                          title="编辑译文"
                         />
                       </div>
                     ) : (

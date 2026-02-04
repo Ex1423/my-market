@@ -160,7 +160,7 @@ export default function AdminUsersPage() {
                       {user.id}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
-                       {user.avatar && <img src={user.avatar} className="w-6 h-6 rounded-full" />}
+                       {user.avatar && <img src={user.avatar} alt={user.username} className="w-6 h-6 rounded-full" />}
                        {user.username}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -204,18 +204,21 @@ export default function AdminUsersPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">用户名</label>
+                <label htmlFor="user-username" className="block text-sm font-medium text-gray-700">用户名</label>
                 <input
+                  id="user-username"
                   type="text"
                   value={formData.username}
                   onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  placeholder="请输入用户名"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">密码 (留空则不修改)</label>
+                <label htmlFor="user-password" className="block text-sm font-medium text-gray-700">密码 (留空则不修改)</label>
                 <input
+                  id="user-password"
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -225,8 +228,9 @@ export default function AdminUsersPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">角色</label>
+                <label htmlFor="user-role" className="block text-sm font-medium text-gray-700">角色</label>
                 <select
+                  id="user-role"
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
@@ -237,28 +241,33 @@ export default function AdminUsersPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">手机号</label>
+                <label htmlFor="user-phone" className="block text-sm font-medium text-gray-700">手机号</label>
                 <input
+                  id="user-phone"
                   type="text"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  placeholder="请输入手机号"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">头像 URL</label>
+                <label htmlFor="user-avatar" className="block text-sm font-medium text-gray-700">头像 URL</label>
                 <input
+                  id="user-avatar"
                   type="text"
                   value={formData.avatar}
                   onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  placeholder="请输入头像图片 URL"
                 />
               </div>
 
                <div>
-                <label className="block text-sm font-medium text-gray-700">通知音效</label>
+                <label htmlFor="notification-sound" className="block text-sm font-medium text-gray-700">通知音效</label>
                 <select
+                  id="notification-sound"
                   value={formData.notificationSound}
                   onChange={(e) => setFormData({ ...formData, notificationSound: e.target.value })}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"

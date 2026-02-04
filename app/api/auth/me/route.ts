@@ -10,18 +10,9 @@ export async function GET() {
       const { data } = await supabase.auth.getUser();
 
       if (data?.user) {
-        const u = data.user;
-        const username =
-          (u.user_metadata?.username as string) || u.email?.split('@')[0] || '';
-        return NextResponse.json({
-          user: {
-            id: u.id,
-            username,
-            email: u.email,
-            avatar: u.user_metadata?.avatar_url ?? null,
-            role: (u.user_metadata?.role as string) || 'user',
-          },
-        });
+        const prismaUser = await users.findOrCreateBySupabase(data.user);
+        const { password: _, ...userWithoutPassword } = prismaUser;
+        return NextResponse.json({ user: userWithoutPassword });
       }
     }
 

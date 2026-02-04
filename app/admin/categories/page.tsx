@@ -289,23 +289,27 @@ export default function AdminCategoriesPage() {
             <h3 className="text-lg font-bold mb-4">{editingCategory ? t.adminCategories?.editModalTitle : t.adminCategories?.addModalTitle}</h3>
             <form onSubmit={handleUpdate}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t.adminCategories?.name}</label>
+                <label htmlFor="category-name" className="block text-sm font-medium text-gray-700 mb-1">{t.adminCategories?.name}</label>
                 <input
+                  id="category-name"
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full border rounded px-3 py-2"
+                  placeholder={t.adminCategories?.name}
                   required
                 />
               </div>
 
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t.adminCategories?.keywords}</label>
+                <label htmlFor="category-keywords" className="block text-sm font-medium text-gray-700 mb-1">{t.adminCategories?.keywords}</label>
                 <input
+                  id="category-keywords"
                   type="text"
                   value={formData.keywords}
                   onChange={(e) => setFormData({ ...formData, keywords: e.target.value })}
                   className="w-full border rounded px-3 py-2"
+                  placeholder={t.adminCategories?.keywords}
                 />
               </div>
               <div className="flex justify-end gap-3">
